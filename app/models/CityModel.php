@@ -1,16 +1,16 @@
 <?php 
 
 
-class CityController{
+class CityModel{
 
-	public function __constrcut()
+	public function __construct()
 	{
 
 	}
 
 	public function getData()
 	{
-
+		echo 'ta data';
 	}
 
 }

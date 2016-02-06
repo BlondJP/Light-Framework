@@ -1,10 +1,18 @@
 <?php
 
-class CityController
+include_once('core/Controller.php');
+
+
+class CityController extends Controller
 {
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
 	public static function test()
 	{
-		echo 'ça marche';
+		self::loadView('city');
 	}
 
 	public static function me()

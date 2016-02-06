@@ -11,7 +11,7 @@ function getRoutes()
 	
 	$routes['presentation'] = 'dbz/presentation';
 	$routes['ma/presentation'] = 'dbz/presentation';
-	$routes['test'] = 'dbz/test';
+	$routes['test'] = 'city/test';
 
 	return $routes;
 }
