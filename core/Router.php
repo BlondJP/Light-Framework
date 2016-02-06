@@ -21,37 +21,57 @@ class Router
 				$isSegment = 0;
 		}
 
-		# Gestion des urls de mauvaise longueur
-		if (count($this->segments) !== 2)
-		{
-			echo 'Bad URL Length';
-			$this->segments = FALSE;
-		}
 	}
 
 	public function applyRoute()
 	{
 		# dans cette fonction on va appliquer la route donnée et appeler le controller adapté
-		if ($this->segments !== FALSE)
+
+		include_once('app/config/routes.php');
+		$routes = getRoutes();
+
+		# I hope
+		$cleanuUrl = implode('/', $this->segments);
+		
+		$error404 = TRUE;
+
+		foreach ($routes as $url => $pathToControllerAndMethod)
 		{
-			# Cas où la route est reglementaire  #ex:  /mon/chemin/
-			$pathOfTheController = 'app/controllers/' . ucfirst($this->segments[0]) . 'Controller' . '.php';
-			if (file_exists($pathOfTheController) === TRUE)
+			if (strcmp($cleanuUrl, $url) === 0)
 			{
-				include_once($pathOfTheController);
+				# Cas ou on a tapé une url validée dans les routes
+				$error404 = FALSE;
 
-				# Ici on va essayer d'appeler la méthode dite dans l'url
-				$phpRequest = ucfirst($this->segments[0]) . 'Controller' . '::' . $this->segments[1] . '();';
+				# on découpe la route pour trouver le controller
+				$paths = explode('/', $pathToControllerAndMethod);
+				if (count($paths) == 2)
+				{
+					# Cas normal
+					$pathOfTheController = 'app/controllers/'. ucfirst($paths[0]) . 'Controller.php';
+					if (file_exists($pathOfTheController) === TRUE)
+					{
+						include_once($pathOfTheController);
 
-				# On masque le message d'erreur de eval()
-				$response = @eval($phpRequest);
+						$phpRequest = ucfirst($paths[0]) . 'Controller::' . $paths[1] . '();';
+						eval($phpRequest);
+					}
+					else
+					{
+						echo 'bad route';
+					}
+				}
+				else
+				{
+					# bad route entered
+					echo 'bad route format :: ex: controller/method';
+				}
 			}
-			else
-			{
-				# Code 404
-				echo 'erreur 404 :: controller ';
-			}
-		}	
+		}
+
+		if ($error404 === TRUE)
+			echo 'erreur 404';
+
+
 	}
 
 }
