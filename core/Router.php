@@ -4,6 +4,7 @@ class Router
 {
 	private $inputUrl;
 	private $segments;
+	private $isIndex = FALSE;
 
 	public function __construct()
 	{
@@ -20,7 +21,11 @@ class Router
 			if (strcmp($part, 'index.php') === 0)
 				$isSegment = 0;
 		}
-
+		if ($isSegment ===  0 && count($this->segments) === 0)
+		{
+			# Cas ou l'url entrée est seulement index.php
+			$this->isIndex = TRUE;
+		}
 	}
 
 	public function applyRoute()
@@ -30,7 +35,39 @@ class Router
 		include_once('app/config/routes.php');
 		$routes = getRoutes();
 
-		# I hope
+		if ($this->isIndex === TRUE)
+		{
+			# Cas ou l'url est seulement index.php
+			foreach ($routes as $url => $pathToControllerAndMethod)
+			{
+				if (strcmp($url, '__default') === 0)
+				{
+					# on découpe la route pour trouver le controller
+					$paths = explode('/', $pathToControllerAndMethod);
+					$pathOfTheController = 'app/controllers/'. ucfirst($paths[0]) . 'Controller.php';
+					if (file_exists($pathOfTheController) === TRUE)
+					{
+						include_once($pathOfTheController);
+
+						$phpRequest = ucfirst($paths[0]) . 'Controller::' . $paths[1] . '();';
+						eval($phpRequest);
+					}
+					else
+					{
+						echo 'bad route';
+					}
+					die;
+				}
+			}
+
+			# erreur 404
+			echo 'erreur 404';
+			#  faire le nécéssaire#
+
+		}
+		else
+		{
+			# I hope
 		$cleanuUrl = implode('/', $this->segments);
 		
 		$error404 = TRUE;
@@ -71,7 +108,7 @@ class Router
 		if ($error404 === TRUE)
 			echo 'erreur 404';
 
-
+		}
 	}
 
 }
