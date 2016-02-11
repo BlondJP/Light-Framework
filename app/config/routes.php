@@ -4,10 +4,7 @@ function getRoutes()
 {
 	$routes = [];
 	
-
-
-
-
+	
 
 	# Ici vous écrirez les routes que vous autorisez
 
@@ -16,6 +13,9 @@ function getRoutes()
 	# $routes['mon/url'] = 'controller/method';
 	
 	# $routes['__default'] = 'controller/method';
+
+	$routes['terminator'] = 'terminator/index';
+	$routes['terminatorTreatForm'] = 'terminator/treatForm';
 
 	$routes['presentation'] = 'dbz/presentation';
 	$routes['ma/presentation'] = 'dbz/presentation';

@@ -49,6 +49,11 @@ class Router
 					{
 						include_once($pathOfTheController);
 
+						# ici on va definir le basepath
+						//$basePath = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+						//var_dump($basepath)
+
+						//echo 'lol'; die;
 						$phpRequest = ucfirst($paths[0]) . 'Controller::' . $paths[1] . '();';
 						eval($phpRequest);
 					}
@@ -61,7 +66,7 @@ class Router
 			}
 
 			# erreur 404
-			echo 'erreur 404';
+			echo 'erreur 404 1';
 			#  faire le nécéssaire#
 
 		}
@@ -69,13 +74,16 @@ class Router
 		{
 			# I hope
 		$cleanuUrl = implode('/', $this->segments);
-		
+		//var_dump($cleanuUrl); die;
+
 		$error404 = TRUE;
 
 		foreach ($routes as $url => $pathToControllerAndMethod)
 		{
+			//echo $cleanuUrl . ' ' .$url . '<br>';
 			if (strcmp($cleanuUrl, $url) === 0)
 			{
+				//echo 'oui';
 				# Cas ou on a tapé une url validée dans les routes
 				$error404 = FALSE;
 
@@ -106,7 +114,7 @@ class Router
 		}
 
 		if ($error404 === TRUE)
-			echo 'erreur 404';
+			echo 'erreur 404 2';
 
 		}
 	}
