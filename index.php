@@ -5,13 +5,9 @@ require_once('Framework/Autoloader/Autoloader.php');
 $autoloader = new Autoloader();
 $autoloader->register();
 
-use Framework\Test;
+$factory = new \Framework\Router\RouterFactory();
+$router = $factory->create();
 
-$l = new Test();
+$action = $router->getAction();
 
-$t = new \App\Test();
-
-var_dump($l, $t);
-
-$router = new \Framework\Router\Router();
-$router->process();
+echo $action;
