@@ -1,6 +1,5 @@
-# Light-Framework
-Mon Framework personnel développé en PHP
+# Light-Framework V2.0
+Le théatre des Design Pattern va ouvrir ses portes.
 
 Fonctionnalités Simples:
-MVC avec des classes statiques
-Routing avec une whiteliste
+*Rien du tout
