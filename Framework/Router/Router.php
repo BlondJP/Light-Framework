@@ -32,7 +32,7 @@ class Router
      * @return string
      * @throws \Exception
      */
-    public function getAction() : \Action
+    public function getAction() : Action
     {
         $this->currentRoute = $this->getRoute();
 
@@ -50,9 +50,9 @@ class Router
      * @param string $segment
      * @return \Action
      */
-    public function createActionFromSegment(string $segment) : \Action
+    public function createActionFromSegment(string $segment) : Action
     {
-        $action = new \Action();
+        $action = new Action();
 
         $segments = explode('/', $segment);
         $action->action = $segments[self::ACTION] . 'Action';
