@@ -4,6 +4,9 @@ namespace Framework\Router;
 
 class Router
 {
+    const CONTROLLER = 0;
+    const ACTION = 0;
+
     /**
      * 'route' => 'controller/action'
      *
@@ -29,16 +32,33 @@ class Router
      * @return string
      * @throws \Exception
      */
-    public function getAction() : string
+    public function getAction() : \Action
     {
         $this->currentRoute = $this->getRoute();
 
-        if ($this->isRouteValid() === true) {
-            $action = $this->routes[$this->currentRoute];
-            return $action;
-        } else {
+        if ($this->isRouteValid() === false) {
             throw new \Exception('Cette ressource n\'existe pas.', 404 );
         }
+
+        $segmentAction = $this->routes[$this->currentRoute];
+        $action = $this->createActionFromSegment($segmentAction);
+
+        return $action;
+    }
+
+    /**
+     * @param string $segment
+     * @return \Action
+     */
+    public function createActionFromSegment(string $segment) : \Action
+    {
+        $action = new \Action();
+
+        $segments = explode('/', $segment);
+        $action->action = $segments[self::ACTION] . 'Action';
+        $action->controller = $segments[self::CONTROLLER] . 'Controller';
+
+        return $action;
     }
 
     /**

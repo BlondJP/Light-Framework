@@ -11,7 +11,8 @@ class AbstractAutoloader implements AutoloaderInterface
             require $file;
             return true;
         }
-        return false;    }
+        return false;
+    }
 
     public function register(): void
     {

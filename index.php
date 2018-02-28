@@ -10,4 +10,6 @@ $router = $factory->create();
 
 $action = $router->getAction();
 
+var_dump('lol');
+
 echo $action;
