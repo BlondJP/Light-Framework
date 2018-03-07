@@ -2,13 +2,24 @@
 
 namespace Framework\Router\Tests;
 
+use Framework\Router\Router;
+use Framework\Router\RouterFactory;
 use PHPUnit\Framework\TestCase;
-
 
 class RouterFactoryTest extends TestCase
 {
-    public function testInstanciation()
+    /* @var RouterFactory $routerFactory */
+    private $routerFactory;
+
+    public function setUp()
     {
-        $this->assertTrue(true);
+        $this->routerFactory = new RouterFactory();
+    }
+
+    public function testCreate()
+    {
+        $router = $this->routerFactory->create();
+
+        $this->assertInstanceOf(Router::class, $router);
     }
 }
