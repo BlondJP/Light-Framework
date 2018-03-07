@@ -14,7 +14,7 @@ class AbstractAutoloader implements AutoloaderInterface
         return false;
     }
 
-    public function register(): void
+    public function register()
     {
         spl_autoload_register('self::load');
     }

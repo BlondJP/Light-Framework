@@ -2,6 +2,6 @@
 
 interface AutoloaderInterface
 {
-    public function register() : void;
+    public function register();
     public function load($class) : bool;
 }
