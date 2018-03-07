@@ -5,6 +5,12 @@ namespace Framework\Container\Tests;
 use Framework\Container\Container;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group ContainerTest
+ *
+ * Class ContainerTest
+ * @package Framework\Container\Tests
+ */
 class ContainerTest extends TestCase
 {
     /* @var Container $container */
@@ -12,11 +18,27 @@ class ContainerTest extends TestCase
 
     public function setUp()
     {
-        $this->container = new Container([]);
+        $config = [
+            CalculService::class => function () { return new CalculService(['lol']); }
+        ];
+
+        $this->container = new Container($config);
     }
 
-    public function testLOL()
+    public function testHas()
     {
-        $this->assertTrue(true);
+        $res = $this->container->has(CalculService::class);
+        $this->assertTrue($res);
+
+        $res = $this->container->has('fake');
+        $this->assertFalse($res);
+    }
+
+    /**
+     * @group ContainerTesttestGet
+     */
+    public function testGet()
+    {
+        $this->container->get(CalculService::class);
     }
 }
