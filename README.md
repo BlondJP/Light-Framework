@@ -1,8 +1,7 @@
-# Light-Framework V2.0
-Le théatre des Design Pattern va ouvrir ses portes.
+<h1>Light Framework</h1>
 
-Fonctionnalités Simples:
-*Rien du tout
+<h2>Launching Tests</h2>
 
-Tests unitaires
+```sh
 phpunit -c .
+```
